@@ -3,8 +3,16 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function GET(request) {
-
+export async function GET() {
+  try {
+    const data = await prisma.characters.findMany({
+    
+    })
+    return NextResponse.json(data)
+  } catch (error) {
+    console.log('error')
+    return NextResponse.json({ error: error.message });
+  }
 }
 
 export async function POST(request) {

@@ -1,17 +1,16 @@
 'use client'
 
-import Image from 'next/image'
-import background from '../public/rickandmorty-background.jpg'
-import NavBar from './components/NavBar/NavBar.jsx'
+import SearchBar from './components/SearchBar/SearchBar'
+import Cards from './components/Cards/Cards.jsx'
 
 export default function Home() {
 
   return (
     <>
-    <div className='fixed [zIndex:-1]'>
-    <Image src={background} width={1920} height={1080} priority={true} alt='background-image' objectFit='cover' className='w-screen' />
+    <div className="bg-cyan-600 h-12 flex justify-center items-center gap-32 py-8">
+            <SearchBar />
     </div>
-    <NavBar />
+    <Cards />
     </>
   )
 }

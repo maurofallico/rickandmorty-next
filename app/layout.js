@@ -1,5 +1,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Image from 'next/image'
+import NavBar from './components/NavBar/NavBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,7 +13,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+      <div className='fixed [zIndex:-1]'>
+    <img src="rickandmorty-background.jpg" width={1920} height={1080}
+     loading='lazy' alt='background-image' className='w-screen' />
+    </div>
+      <NavBar />
+      {children}
+      </body>
     </html>
   )
 }

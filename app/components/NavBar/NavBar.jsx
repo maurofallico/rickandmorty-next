@@ -1,16 +1,13 @@
-import Link from 'next/link'
-import SearchBar from '../SearchBar/SearchBar'
+import NavLink from 'next/link'
+
 
 export default function NavBar (){
     return (
         <>
         <div className="bg-cyan-600 h-16 flex justify-center items-center gap-32">
-            <Link href="/" className='bg-white rounded-md px-2 py-1 hover:bg-gray-200'>Home</Link>
-            <Link href="/" className='bg-white rounded-md px-2 py-1 hover:bg-gray-200'>Favorites</Link>
-            <Link href="/" className='bg-white rounded-md px-2 py-1 hover:bg-gray-200'>About</Link>
-        </div>
-        <div className="bg-cyan-600 h-12 flex justify-center items-center gap-32 py-8">
-            <SearchBar />
+            <NavLink href="/" className='bg-white rounded-md px-2 py-1 hover:bg-gray-200'>Home</NavLink>
+            <NavLink href="/favorites" className='bg-white rounded-md px-2 py-1 hover:bg-gray-200'>Favorites</NavLink>
+            <NavLink href="/about" className='bg-white rounded-md px-2 py-1 hover:bg-gray-200'>About</NavLink>
         </div>
         </>
     )
