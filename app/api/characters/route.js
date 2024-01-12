@@ -27,3 +27,27 @@ export async function POST(request) {
         return NextResponse.json({ error: error.message });
       }
 }
+
+export async function PUT(request) {
+  try {
+    const data = await request.json();
+      await prisma.characters.update({
+        where: {
+          id: data.id,
+        },
+        data: {
+          name: data.name,
+          status: data.status,
+          species: data.species,
+          gender: data.gender,
+          origin: data.origin,
+          image: data.image,
+          fav: data.fav,
+        },
+      });
+      return NextResponse.json("Character updated!");
+    } catch (error) {
+      console.log(error)
+      return NextResponse.json({ error: error.message });
+    }
+}

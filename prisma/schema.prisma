@@ -18,6 +18,7 @@ model Characters {
   gender gender
   origin String
   image String
+  fav Boolean @default(false)
 }
 
 enum status {
