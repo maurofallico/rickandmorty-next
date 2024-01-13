@@ -1,4 +1,5 @@
 "use client";
+
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
