@@ -1,3 +1,5 @@
+"use client"
+
 import Cards from '../components/Cards/Cards.jsx'
 
 export default function Favorites() {
