@@ -8,10 +8,10 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     let page = parseInt(searchParams.get("page"))
     if (!page) page=1
-    const skip = (page-1)*16
+    const skip = (page-1)*14
     const data = await prisma.characters.findMany({
-      take: 16,  
-      skip,       
+      take: 14,  
+      skip,
     });
     return NextResponse.json(data);
   } catch (error) {

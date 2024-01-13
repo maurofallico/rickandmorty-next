@@ -41,9 +41,9 @@ export default function Cards() {
     cargarDatos();
   }, [page, addFav, removeFav]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     characters.sort((a, b) => a.id - b.id);
-  }, []);
+  }, []); */
 
   function nextPage() {
     if (page !== 52) setPage(page + 1);
@@ -55,8 +55,8 @@ export default function Cards() {
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-center mt-20 gap-10 ">
-        {characters.map(
+      <div className="flex flex-wrap items-center justify-center mt-12 gap-10 ">
+        {characters?.map(
           ({ id, name, species, gender, image, status, origin, fav }) => {
             let size = "";
             if (name.length < 14) size = "text-3xl";
@@ -65,7 +65,7 @@ export default function Cards() {
             return (
               <div
                 key={id}
-                className="w-60 h-[350px] bg-cyan-600 rounded-3xl text-white flex flex-col items-center text-center py-2"
+                className="w-52 h-[290px] bg-cyan-600 rounded-3xl text-white flex flex-col items-center text-center py-2"
               >
                 <button
                   key={id}
@@ -86,8 +86,8 @@ export default function Cards() {
                 <div className="w-full h-full items-end flex justify-center">
                   <Image
                     src={image}
-                    width={200}
-                    height={200}
+                    width={160}
+                    height={160}
                     alt="characterImage"
                     style={{ objectFit: "cover" }}
                     className="flex mb-2 "
@@ -98,22 +98,21 @@ export default function Cards() {
           }
         )}
       </div>
-      <div className="flex flex-col items-center justify-center mt-12 gap-6 text-2xl">
-        <div className="flex flex-row gap-12">
+      <div className="flex flex-row items-center justify-center mt-12 gap-6 text-2xl">
           <button
             className="bg-white rounded-xl p-3 hover:bg-gray-200"
             onClick={prevPage}
           >
             <AiOutlineArrowLeft />
           </button>
+          <p className="bg-cyan-600 px-4 p-2 rounded-xl">PAGE:{page}</p>
           <button
             className="bg-white rounded-xl p-3 hover:bg-gray-200"
             onClick={nextPage}
           >
             <AiOutlineArrowRight />
           </button>
-        </div>
-        <p className="bg-cyan-600 px-4 py-1 rounded-md">PAGE:{page}</p>
+
       </div>
     </>
   );
