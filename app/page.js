@@ -10,7 +10,7 @@ export default function Home() {
     <div className="bg-cyan-600 h-12 flex justify-center items-center gap-32 py-8">
             <SearchBar />
     </div>
-    /* <Cards /> */
+     <Cards /> 
     </>
   )
 }

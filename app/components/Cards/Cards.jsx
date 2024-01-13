@@ -1,94 +1,119 @@
 "use client";
+import { AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
+import { usePathname } from "next/navigation";
 
 export default function Cards() {
+  const pathname = usePathname();
   const [characters, setCharacters] = useState([]);
-  const [fav, setFav] = useState("false");
+  const [page, setPage] = useState(1);
 
-  const changeFav = (id) => {
-      setFav((prevButtons) => {
-        if (prevButtons.includes(id)) {
-          // Button was favorited, remove it
-          const response = axios.put(`/api/characters`, {
-            id,
-            fav: false
-          })
-          return prevButtons.filter((buttonId) => buttonId !== id);
-        } else {
-          // Button wasn't favorited, add it
-          const response = axios.put(`/api/characters`, {
-            id,
-            fav: true
-          })
-          return [...prevButtons, id];
-        }
-  });
-}
+  const addFav = (id) => {
+    const response = axios.put(`/api/characters`, {
+      id,
+      fav: true,
+    });
+  };
+
+  const removeFav = (id) => {
+    const response = axios.put(`/api/characters`, {
+      id,
+      fav: false,
+    });
+  };
 
   async function cargarDatos() {
-    const response = await axios.get("/api/characters");
-    setCharacters(response.data);
+    if (pathname === "/favorites") {
+      const response = await axios.get(`/api/favorites?page=${page}`);
+      setCharacters(response.data);
+    } else {
+      const response = await axios.get(`/api/characters?page=${page}`);
+      setCharacters(response.data);
+    }
   }
 
   useEffect(() => {
     cargarDatos();
-   }, []);
+  }, [page, addFav, removeFav]);
 
   useEffect(() => {
     characters.sort((a, b) => a.id - b.id);
   }, []);
 
+  function nextPage() {
+    if (page !== 52) setPage(page + 1);
+  }
+
+  function prevPage() {
+    if (page !== 1) setPage(page - 1);
+  }
+
   return (
     <>
       <div className="flex flex-wrap items-center justify-center mt-20 gap-10 ">
         {characters.map(
-
-            ({ id, name, species, gender, image, status, origin }) => {
-              let size = "";
-              if (name.length < 14) size = "text-3xl";
-              if (name.length > 13 && name.length < 31) size = "text-2xl";
-              if (name.length > 30) size = "text-xl";
-              return (
-                <div
+          ({ id, name, species, gender, image, status, origin, fav }) => {
+            let size = "";
+            if (name.length < 14) size = "text-3xl";
+            if (name.length > 13 && name.length < 31) size = "text-2xl";
+            if (name.length > 30) size = "text-xl";
+            return (
+              <div
+                key={id}
+                className="w-60 h-[350px] bg-cyan-600 rounded-3xl text-white flex flex-col items-center text-center py-2"
+              >
+                <button
                   key={id}
-                  className="w-60 h-[350px] bg-cyan-600 rounded-3xl text-white flex flex-col items-center text-center py-2"
+                  name={id}
+                  onClick={() => (fav ? removeFav(id) : addFav(id))}
+                  className={`flex self-end mx-4 text-2xl ${
+                    fav ? "text-red-500" : ""
+                  }`}
                 >
-                  {/* {!fav? (<button name={id} onClick={changeFav} className="flex self-end mx-4 text-2xl "><FaRegHeart /></button>) :
-              (<button name={id} onClick={changeFav} className="flex self-end mx-4 text-2xl "><FaHeart/></button>)} */}
-                  <button
-                    key={id}
-                    name={id}
-                    onClick={() => changeFav(id)}
-                    className={`flex self-end mx-4 text-2xl ${
-                      fav.includes(id) ? "text-red-500" : ""
-                    }`}
-                  >
-                    <FaHeart />
-                  </button>
+                  <FaHeart />
+                </button>
 
-                  <p
-                    className={`text-balance mt-0 h-24 flex items-center px-4 py-0 ${size}`}
-                  >
-                    {name}
-                  </p>
-                  <div className="w-full h-full items-end flex justify-center">
-                    <Image
-                      src={image}
-                      width={200}
-                      height={200}
-                      alt="characterImage"
-                      style={{ objectFit: "cover" }}
-                      className="flex mb-2 "
-                    />
-                  </div>
+                <p
+                  className={`text-balance mt-0 h-24 flex items-center px-4 py-0 ${size}`}
+                >
+                  {name}
+                </p>
+                <div className="w-full h-full items-end flex justify-center">
+                  <Image
+                    src={image}
+                    width={200}
+                    height={200}
+                    alt="characterImage"
+                    style={{ objectFit: "cover" }}
+                    className="flex mb-2 "
+                  />
                 </div>
-              );
-            }
+              </div>
+            );
+          }
         )}
+      </div>
+      <div className="flex flex-col items-center justify-center mt-12 gap-6 text-2xl">
+        <div className="flex flex-row gap-12">
+          <button
+            className="bg-white rounded-xl p-3 hover:bg-gray-200"
+            onClick={prevPage}
+          >
+            <AiOutlineArrowLeft />
+          </button>
+          <button
+            className="bg-white rounded-xl p-3 hover:bg-gray-200"
+            onClick={nextPage}
+          >
+            <AiOutlineArrowRight />
+          </button>
+        </div>
+        <p className="bg-cyan-600 px-4 py-1 rounded-md">PAGE:{page}</p>
       </div>
     </>
   );
