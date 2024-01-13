@@ -13,18 +13,43 @@ export default function Cards() {
   const [characters, setCharacters] = useState([]);
   const [page, setPage] = useState(1);
 
-  const addFav = (id) => {
-    const response = axios.put(`/api/characters`, {
-      id,
-      fav: true,
-    });
+  const addFav = async (id) => {
+    try {
+      // Actualiza localmente el estado de fav
+      setCharacters((prevCharacters) =>
+        prevCharacters.map((char) =>
+          char.id === id ? { ...char, fav: true } : char
+        )
+      );
+
+      // Realiza la solicitud al backend
+      const response = await axios.put(`/api/characters`, {
+        id,
+        fav: true,
+      });
+    } catch (error) {
+      console.error('Error adding fav:', error);
+    }
   };
 
-  const removeFav = (id) => {
-    const response = axios.put(`/api/characters`, {
-      id,
-      fav: false,
-    });
+  const removeFav = async (id) => {
+    try {
+      // Actualiza localmente el estado de fav
+      setCharacters((prevCharacters) =>
+        prevCharacters.map((char) =>
+          char.id === id ? { ...char, fav: false } : char
+        )
+      );
+
+      // Realiza la solicitud al backend
+      const response = await axios.put(`/api/characters`, {
+        id,
+        fav: false,
+      });
+      if (pathname === "/favorites") cargarDatos()
+    } catch (error) {
+      console.error('Error removing fav:', error);
+    }
   };
 
   async function cargarDatos() {
@@ -39,11 +64,11 @@ export default function Cards() {
 
   useEffect(() => {
     cargarDatos();
-  }, [page, addFav, removeFav]);
+  }, [page]);
 
-  /* useEffect(() => {
+  useEffect(() => {
     characters.sort((a, b) => a.id - b.id);
-  }, []); */
+  }, []);
 
   function nextPage() {
     if (page !== 52) setPage(page + 1);
@@ -52,6 +77,7 @@ export default function Cards() {
   function prevPage() {
     if (page !== 1) setPage(page - 1);
   }
+  
 
   return (
     <>
