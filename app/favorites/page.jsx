@@ -18,6 +18,7 @@ export default function Favorites() {
         id,
         fav: false,
       });
+      paginarDatos()
     } catch (error) {
       console.error("Error removing fav:", error);
     }
