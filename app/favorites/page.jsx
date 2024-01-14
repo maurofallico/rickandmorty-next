@@ -11,6 +11,7 @@ export default function Favorites() {
   const [charPage, setCharPage] = useState([]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
+  const [fav, setFav] = useState(false)
 
   const removeFav = async (id) => {
     try {
@@ -28,6 +29,7 @@ export default function Favorites() {
     try {
       const response = await axios.get(`/api/favorites`);
       setCharacters(response.data);
+      if (characters.length > 0) setFav(true)
       console.log(response.data)
     } catch (error) {
       console.log(error);
@@ -45,7 +47,7 @@ export default function Favorites() {
 
   useEffect(() => {
     cargarDatos();
-  }, [page]);
+  }, [fav]);
 
   useEffect(() => {
     cargarDatos();
