@@ -18,8 +18,7 @@ export default function Favorites() {
         id,
         fav: false,
       });
-      cargarDatos()
-      alert('fav removed')
+      await cargarDatos()
     } catch (error) {
       console.error("Error removing fav:", error);
     }
