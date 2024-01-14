@@ -49,7 +49,7 @@ export default function Favorites() {
 
       useEffect(() => {
         paginarDatos();
-      }, [characters, page]);
+      }, [charPage, page]);
 
       function nextPage() {
         if (page !== maxPage) setPage(page + 1);
