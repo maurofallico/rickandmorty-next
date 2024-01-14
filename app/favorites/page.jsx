@@ -87,8 +87,12 @@ export default function Favorites() {
       </div>
       {charPage?.map(
         ({ id, name, species, gender, image, status, origin, fav }) => {
-            key={id}
-          return <p className="bg-cyan-600 px-4 p-2 rounded-xl">{name}</p>;
+            
+          return (
+            <div key={id}>
+          <p className="bg-cyan-600 px-4 p-2 rounded-xl">{name}</p>
+          </div>
+          );
         }
       )}
     </>
