@@ -44,18 +44,12 @@ export default function Favorites() {
 
   useEffect(() => {
     cargarDatos();
+    paginarDatos()
   }, []);
 
   useEffect(() => {
     cargarDatos();
-  }, [removeFav]);
-
-  useEffect(() => {
-    paginarDatos();
-  }, [characters, page]);
-
-  useEffect(() => {
-    paginarDatos();
+    paginarDatos()
   }, [removeFav]);
 
   function nextPage() {
