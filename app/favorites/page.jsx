@@ -45,12 +45,8 @@ export default function Favorites() {
 
         useEffect(() => {
             cargarDatos();
-          }, []);
+          }, [removeFav]);
     
-      useEffect(() => {
-        cargarDatos();
-      }, [removeFav]);
-
       useEffect(() => {
         paginarDatos();
       }, [characters]);
