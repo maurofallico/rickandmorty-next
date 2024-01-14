@@ -65,7 +65,6 @@ export default function Favorites() {
         <SearchBar characters={characters} />
       </div>
       <Cards
-        addFav={addFav}
         charPage={charPage}
         characters={characters}
         removeFav={removeFav}
