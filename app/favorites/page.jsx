@@ -23,6 +23,7 @@ export default function Favorites() {
       async function cargarDatos() {
         try {
             const response = await axios.get(`/api/favorites?page=${page}`);
+            console.log("Favorites Response:" ,response.data)
             setCharacters(response.data);
         } catch (error) {
           console.log(error)
