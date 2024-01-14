@@ -26,9 +26,11 @@ export default function Favorites() {
       };
 
       async function cargarDatos() {
+        console.log('cargando Datos')
         try {
             const response = await axios.get(`/api/favorites`);
             setCharacters(response.data);
+            console.log('finalizo peticion y setCharacters correctamente')
         } catch (error) {
           console.log(error)
         }
