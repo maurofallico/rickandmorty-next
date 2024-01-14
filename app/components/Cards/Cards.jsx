@@ -9,7 +9,7 @@ import Image from "next/image";
 import axios from "axios";
 
 
-export default function Cards({ characters, addFav, removeFav }) {
+export default function Cards({ charPage, addFav, removeFav }) {
 
   /*
 
@@ -25,7 +25,7 @@ export default function Cards({ characters, addFav, removeFav }) {
   return (
     <>
       <div className="flex flex-wrap items-center justify-center mt-12 gap-10 ">
-        {characters?.map(
+        {charPage?.map(
           ({ id, name, species, gender, image, status, origin, fav }) => {
             let size = "";
             if (name.length < 14) size = "text-3xl";

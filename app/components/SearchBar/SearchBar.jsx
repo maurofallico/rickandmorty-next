@@ -1,14 +1,25 @@
 'use client'
 
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
-export default function SearchBar() {
+export default function SearchBar( {characters }) {
+    const [hidden, setHidden] = useState('true')
 
     const [value, setValue] = useState()
 
     function handleChange(e){
         setValue(e.target.value)
     }
+
+    useEffect(() => {
+        if (characters && characters.length > 0){
+            setHidden(false)
+        }
+        else{
+            setHidden(true)
+        }
+      }, [characters]);
+
 
 
     return (
@@ -20,6 +31,7 @@ export default function SearchBar() {
             placeholder="Find a character..."
             value={value}
             onChange={handleChange}
+            hidden={hidden}
             />
         </div>
         </>
