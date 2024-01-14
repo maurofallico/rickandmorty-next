@@ -29,7 +29,6 @@ export default function Favorites() {
         try {
             const response = await axios.get(`/api/favorites`);
             setCharacters(response.data);
-            console.log(response.data)
         } catch (error) {
           console.log(error)
         }
@@ -67,7 +66,7 @@ export default function Favorites() {
         <div className="bg-cyan-600 h-12 flex justify-center items-center gap-32 py-8">
             <SearchBar characters={characters}/>
         </div>
-        <Cards charPage={charPage} removeFav={removeFav} />
+        <Cards charPage={charPage} characters={characters} removeFav={removeFav} />
         <div className="flex flex-row items-center justify-center mt-12 gap-6 text-2xl">
           <button
             className="bg-white rounded-xl p-3 hover:bg-gray-200"
