@@ -13,8 +13,16 @@ export default function Favorites() {
     const [page, setPage] = useState(1)
     const [maxPage, setMaxPage] = useState(1)
     
-      const removeFav = async (id) => {
+    const removeFav = async (id) => {
         try {
+          // Actualiza localmente el estado de fav
+          setCharacters((prevCharacters) =>
+            prevCharacters.map((char) =>
+              char.id === id ? { ...char, fav: false } : char
+            )
+          );
+    
+          // Realiza la solicitud al backend
           const response = await axios.put(`/api/characters`, {
             id,
             fav: false,
