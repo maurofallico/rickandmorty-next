@@ -15,18 +15,11 @@ export default function Favorites() {
     
     const removeFav = async (id) => {
         try {
-          // Actualiza localmente el estado de fav
-          setCharacters((prevCharacters) =>
-            prevCharacters.map((char) =>
-              char.id === id ? { ...char, fav: false } : char
-            )
-          );
-    
-          // Realiza la solicitud al backend
           const response = await axios.put(`/api/characters`, {
             id,
             fav: false,
           });
+          cargarDatos()
         } catch (error) {
           console.error('Error removing fav:', error);
         }
@@ -54,11 +47,7 @@ export default function Favorites() {
         useEffect(() => {
             cargarDatos();
           }, []);
-
-        useEffect(() => {
-            cargarDatos();
-          }, [removeFav]);
-    
+  
       useEffect(() => {
         paginarDatos();
       }, [characters]);
