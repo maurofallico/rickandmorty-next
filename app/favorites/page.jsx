@@ -28,6 +28,7 @@ export default function Favorites() {
     try {
       const response = await axios.get(`/api/favorites`);
       setCharacters(response.data);
+      console.log(response.data)
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +49,7 @@ export default function Favorites() {
 
   useEffect(() => {
     paginarDatos();
-  }, [characters]);
+  }, [characters, page]);
 
   function nextPage() {
     if (page !== maxPage) setPage(page + 1);
@@ -64,6 +65,7 @@ export default function Favorites() {
         <SearchBar characters={characters} />
       </div>
       <Cards
+        addFav={addFav}
         charPage={charPage}
         characters={characters}
         removeFav={removeFav}
