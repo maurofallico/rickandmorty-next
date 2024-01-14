@@ -47,12 +47,8 @@ export default function Favorites() {
   }, []);
 
   useEffect(() => {
-    cargarDatos();
-  }, [removeFav]);
-
-  useEffect(() => {
     paginarDatos()
-  }, [cargarDatos]);
+  }, [cargarDatos, removeFav]);
 
   function nextPage() {
     if (page !== maxPage) setPage(page + 1);
