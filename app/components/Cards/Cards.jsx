@@ -57,6 +57,7 @@ export default function Cards() {
     try {
       if (pathname === "/favorites") {
         const response = await axios.get(`/api/favorites?page=${page}`);
+        console.log('Favorites API Response:', response.data);
         setCharacters(response.data);
       } else {
         const response = await axios.get(`/api/characters?page=${page}`);
