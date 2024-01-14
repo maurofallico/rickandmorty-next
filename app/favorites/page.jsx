@@ -14,11 +14,6 @@ export default function Favorites() {
 
   const removeFav = async (id) => {
     try {
-        setCharacters((prevCharacters) =>
-        prevCharacters.map((char) =>
-          char.id === id ? { ...char, fav: false } : char
-        )
-      );
       const response = await axios.put(`/api/characters`, {
         id,
         fav: false,
@@ -58,6 +53,10 @@ export default function Favorites() {
   useEffect(() => {
     paginarDatos();
   }, [characters, page]);
+
+  useEffect(() => {
+    paginarDatos();
+  }, [removeFav]);
 
   function nextPage() {
     if (page !== maxPage) setPage(page + 1);
