@@ -14,10 +14,11 @@ export default function Favorites() {
 
   const removeFav = async (id) => {
     try {
-      const response = await axios.put(`/api/characters`, {
+      await axios.put(`/api/characters`, {
         id,
         fav: false,
       });
+      cargarDatos()
     } catch (error) {
       console.error("Error removing fav:", error);
     }
@@ -48,7 +49,7 @@ export default function Favorites() {
 
   useEffect(() => {
     paginarDatos()
-  }, [cargarDatos, removeFav]);
+  }, [characters, page]);
 
   function nextPage() {
     if (page !== maxPage) setPage(page + 1);
@@ -85,16 +86,6 @@ export default function Favorites() {
           <AiOutlineArrowRight />
         </button>
       </div>
-      {charPage?.map(
-        ({ id, name, species, gender, image, status, origin, fav }) => {
-            
-          return (
-            <div key={id}>
-          <p className="bg-cyan-600 px-4 p-2 rounded-xl">{name}</p>
-          </div>
-          );
-        }
-      )}
     </>
   );
 }
