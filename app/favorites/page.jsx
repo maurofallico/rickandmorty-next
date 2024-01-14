@@ -48,6 +48,10 @@ export default function Favorites() {
   }, [page]);
 
   useEffect(() => {
+    cargarDatos();
+  }, []);
+
+  useEffect(() => {
     paginarDatos()
   }, [characters, page]);
 
