@@ -55,10 +55,7 @@ export default function Home(){
         if (characters.length===0){
           const response = await axios.get(`/api/characters`);
           setCharacters(response.data);
-        }
-        
-        
-        
+        }   
     } catch (error) {
       console.log(error)
     }

@@ -42,6 +42,10 @@ export default function Favorites() {
         }
         setCharPage(characters.slice((page-1)*14, 14*page))
         }
+
+        useEffect(() => {
+            cargarDatos();
+          }, []);
     
       useEffect(() => {
         cargarDatos();
@@ -49,7 +53,7 @@ export default function Favorites() {
 
       useEffect(() => {
         paginarDatos();
-      }, [characters, page, removeFav]);
+      }, [characters]);
 
       function nextPage() {
         if (page !== maxPage) setPage(page + 1);
