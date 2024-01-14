@@ -65,7 +65,7 @@ export default function Cards() {
 
   useEffect(() => {
     cargarDatos();
-  }, [page]);
+  }, [page, pathname]);
 
   useEffect(() => {
     characters.sort((a, b) => a.id - b.id);
@@ -83,7 +83,7 @@ export default function Cards() {
   return (
     <>
       <div className="flex flex-wrap items-center justify-center mt-12 gap-10 ">
-        {characters?.map(
+        {characters.map(
           ({ id, name, species, gender, image, status, origin, fav }) => {
             let size = "";
             if (name.length < 14) size = "text-3xl";
