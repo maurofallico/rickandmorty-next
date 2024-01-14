@@ -54,22 +54,26 @@ export default function Cards() {
   };
 
   async function cargarDatos() {
-    if (pathname === "/favorites") {
-      const response = await axios.get(`/api/favorites?page=${page}`);
-      setCharacters(response.data);
-    } else {
-      const response = await axios.get(`/api/characters?page=${page}`);
-      setCharacters(response.data);
+    try {
+      if (pathname === "/favorites") {
+        const response = await axios.get(`/api/favorites?page=${page}`);
+        setCharacters(response.data);
+      } else {
+        const response = await axios.get(`/api/characters?page=${page}`);
+        setCharacters(response.data);
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
   useEffect(() => {
     cargarDatos();
-  }, [page, pathname]);
+  }, [page]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     characters.sort((a, b) => a.id - b.id);
-  }, []);
+  }, []); */
 
   function nextPage() {
     if (page !== 52) setPage(page + 1);
@@ -83,7 +87,7 @@ export default function Cards() {
   return (
     <>
       <div className="flex flex-wrap items-center justify-center mt-12 gap-10 ">
-        {characters.map(
+        {characters?.map(
           ({ id, name, species, gender, image, status, origin, fav }) => {
             let size = "";
             if (name.length < 14) size = "text-3xl";
