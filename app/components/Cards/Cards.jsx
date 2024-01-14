@@ -7,74 +7,11 @@ import { FaRegHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
-import { usePathname } from "next/navigation";
 
-export default function Cards() {
-  const pathname = usePathname();
-  const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(1);
 
-  const addFav = async (id) => {
-    try {
-      // Actualiza localmente el estado de fav
-      setCharacters((prevCharacters) =>
-        prevCharacters.map((char) =>
-          char.id === id ? { ...char, fav: true } : char
-        )
-      );
+export default function Cards({ characters, addFav, removeFav }) {
 
-      // Realiza la solicitud al backend
-      const response = await axios.put(`/api/characters`, {
-        id,
-        fav: true,
-      });
-    } catch (error) {
-      console.error('Error adding fav:', error);
-    }
-  };
-
-  const removeFav = async (id) => {
-    try {
-      // Actualiza localmente el estado de fav
-      setCharacters((prevCharacters) =>
-        prevCharacters.map((char) =>
-          char.id === id ? { ...char, fav: false } : char
-        )
-      );
-
-      // Realiza la solicitud al backend
-      const response = await axios.put(`/api/characters`, {
-        id,
-        fav: false,
-      });
-      if (pathname === "/favorites") cargarDatos()
-    } catch (error) {
-      console.error('Error removing fav:', error);
-    }
-  };
-
-  async function cargarDatos() {
-    try {
-      if (pathname === "/favorites") {
-        const response = await axios.get(`/api/favorites?page=${page}`);
-        console.log('Favorites API Response:', response.data);
-        setCharacters(response.data);
-      } else {
-        const response = await axios.get(`/api/characters?page=${page}`);
-        setCharacters(response.data);
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    cargarDatos();
-  }, [page]);
-
-  /* useEffect(() => {
-    characters.sort((a, b) => a.id - b.id);
-  }, []); */
+  /*
 
   function nextPage() {
     if (page !== 52) setPage(page + 1);
@@ -82,7 +19,7 @@ export default function Cards() {
 
   function prevPage() {
     if (page !== 1) setPage(page - 1);
-  }
+  } */
   
 
   return (
@@ -130,7 +67,7 @@ export default function Cards() {
           }
         )}
       </div>
-      <div className="flex flex-row items-center justify-center mt-12 gap-6 text-2xl">
+      {/* <div className="flex flex-row items-center justify-center mt-12 gap-6 text-2xl">
           <button
             className="bg-white rounded-xl p-3 hover:bg-gray-200"
             onClick={prevPage}
@@ -145,7 +82,7 @@ export default function Cards() {
             <AiOutlineArrowRight />
           </button>
 
-      </div>
+      </div> */}
     </>
   );
 }
