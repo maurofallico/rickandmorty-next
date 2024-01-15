@@ -14,7 +14,7 @@ export default function Favorites() {
 
   const removeFav = async (id) => {
     try {
-      await axios.put(`/api/characters`, {
+      const response = await axios.put(`/api/characters`, {
         id,
         fav: false,
         
