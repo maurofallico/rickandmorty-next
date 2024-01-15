@@ -26,6 +26,8 @@ export default function Home(){
         id,
         fav: true,
       });
+      if (response.status === 200) alert('fav agregado')
+      
     } catch (error) {
       console.error('Error adding fav:', error);
     }
