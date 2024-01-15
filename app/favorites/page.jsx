@@ -19,12 +19,7 @@ export default function Favorites() {
         fav: false,
         
       });
-      if (response.status === 200) {
       await cargarDatos()
-      }
-      else{
-        console.error('Error removing fav: Unexpected status code', response.status);
-      }
     } catch (error) {
       console.error("Error removing fav:", error);
     }
@@ -34,7 +29,6 @@ export default function Favorites() {
     try {
       const response = await axios.get(`/api/favorites`);
       setCharacters(response.data);
-      console.log(response.data)
     } catch (error) {
       console.log(error);
     }
