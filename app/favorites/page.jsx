@@ -5,7 +5,7 @@ import Cards from "../components/Cards/Cards.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchBar from "../components/SearchBar/SearchBar.jsx";
-import { useRouter } from 'next/navegation'
+import { useRouter } from 'next/router'
 
 export default function Favorites() {
   const router = useRouter()
