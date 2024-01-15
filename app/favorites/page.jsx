@@ -5,8 +5,10 @@ import Cards from "../components/Cards/Cards.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchBar from "../components/SearchBar/SearchBar.jsx";
+import { useRouter } from 'next/navegation'
 
 export default function Favorites() {
+  const router = useRouter()
   const [characters, setCharacters] = useState([]);
   const [charPage, setCharPage] = useState([]);
   const [page, setPage] = useState(1);
@@ -30,6 +32,7 @@ export default function Favorites() {
       const response = await axios.get(`/api/favorites`);
       setCharacters(response.data);
       console.log(response.data)
+      router.refresh()
     } catch (error) {
       console.log(error);
     }
