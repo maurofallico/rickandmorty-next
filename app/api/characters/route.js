@@ -30,7 +30,7 @@ export async function GET(request) {
 export async function POST(request) {
     try {
         const data = await request.json();
-        await prisma.characters.createMany({
+        await prisma.characters.create({
           data: data,
         });
         return NextResponse.json("Character created!");

@@ -61,6 +61,7 @@ export default function Home(){
     }
   }
 
+
   function paginarDatos(){
     if (characters.length === 0){
       setMaxPage(1)
@@ -68,12 +69,12 @@ export default function Home(){
     else{
       setMaxPage(Math.ceil(characters.length / 14))
     }
-    setCharPage(characters?.slice((page-1)*14, 14*page))
+    setCharPage(characters.slice((page-1)*14, 14*page))
     }
 
- /*  useEffect(() => {
+  useEffect(() => {
     characters.sort((a, b) => a.id - b.id);
-  }, []); */
+  }, []);
 
   useEffect(() => {
     cargarDatos();
@@ -85,7 +86,7 @@ export default function Home(){
 
 
   function nextPage() {
-     if (page !== maxPage) setPage(page + 1);
+    if (page !== maxPage) setPage(page + 1);
   }
 
   function prevPage() {
