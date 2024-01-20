@@ -68,7 +68,7 @@ export default function Home(){
     else{
       setMaxPage(Math.ceil(characters.length / 14))
     }
-    setCharPage(characters.slice((page-1)*14, 14*page))
+    setCharPage(characters?.slice((page-1)*14, 14*page))
     }
 
  /*  useEffect(() => {
