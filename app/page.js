@@ -13,34 +13,31 @@ export default function Home(){
   const [maxPage, setMaxPage] = useState(1)
 
   const addFav = async (id) => {
-    try {
-      // Actualiza localmente el estado de fav
-      setCharacters((prevCharacters) =>
-        prevCharacters.map((char) =>
-          char.id === id ? { ...char, fav: true } : char
-        )
-      );
-
-      // Realiza la solicitud al backend
-      const response = await axios.put(`/api/characters`, {
-        id,
-        fav: true,
-      });
-    } catch (error) {
-      console.error('Error adding fav:', error);
-    }
+      try {
+        setCharacters((prevCharacters) =>
+          prevCharacters.map((char) =>
+            char.id === id ? { ...char, fav: true } : char
+          )
+        );
+  
+        const response = await axios.put(`/api/characters`, {
+          id,
+          fav: true,
+        });
+        
+      } catch (error) {
+        console.error('Error adding fav:', error);
+      }
   };
 
   const removeFav = async (id) => {
     try {
-      // Actualiza localmente el estado de fav
       setCharacters((prevCharacters) =>
         prevCharacters.map((char) =>
           char.id === id ? { ...char, fav: false } : char
         )
       );
 
-      // Realiza la solicitud al backend
       const response = await axios.put(`/api/characters`, {
         id,
         fav: false,

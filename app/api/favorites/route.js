@@ -6,16 +6,17 @@ const prisma = new PrismaClient()
 export async function GET(request) {
   
     try {
-      /* const { searchParams } = new URL(request.url);
-      let page = parseInt(searchParams.get("page"))
+       const { searchParams } = new URL(request.url);
+      /* let page = parseInt(searchParams.get("page"))
        if (!page) page=1 
       const skip = (page-1)*14 */
+      let gender = searchParams.get("gender")
+      let whereCondition = {fav: true, gender: gender}
+      if (!gender || gender==="all") whereCondition = {fav: true}
       const data = await prisma.characters.findMany({
         /* take: 14,  
         skip, */
-        where: {
-            fav: true,
-          },  
+        where: whereCondition,
           orderBy: {
             id: 'asc'
           },     
