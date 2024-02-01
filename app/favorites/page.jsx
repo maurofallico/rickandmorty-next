@@ -3,11 +3,16 @@
 import Cards from "../components/Cards/Cards.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Detail from "../components/Detail/Detail.jsx"
 
 export default function Favorites() {
   const [characters, setCharacters] = useState([]);
   const [charPage, setCharPage] = useState([]);
   const [gender, setGender] = useState('all');
+  const [loading, setLoading] = useState(true)
+  const [cardId, setCardId] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
+
 
   const removeFav = async (id) => {
     try {
@@ -36,6 +41,7 @@ export default function Favorites() {
       const response = await axios.get(`/api/favorites?gender=${gender}`);
       const responseData = response.data;
       setCharPage(responseData);
+      if (response) setLoading(false)
     } catch (error) {
       console.error("Error filtering data:", error);
     }
@@ -62,7 +68,12 @@ export default function Favorites() {
           </select>
         </div>
       </div>
-      <Cards charPage={charPage} characters={characters} removeFav={removeFav} />
+      {!loading? (<Cards isOpen={isOpen} setIsOpen={setIsOpen} cardId={cardId} setCardId={setCardId} charPage={charPage} characters={characters} removeFav={removeFav} /> ):
+      (<div className="text-5xl text-gray-50 flex flex-col items-center justify-center gap-24 py-12">
+      <p>LOADING FAVORITES...</p>
+      <span className="text-cyan-600 w-[150px] loading loading-spinner "></span>
+      </div>)}
+      {isOpen? (<Detail cardId={cardId} setIsOpen={setIsOpen} />) : (null)}
     </>
   );
 }

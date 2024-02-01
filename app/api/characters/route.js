@@ -4,7 +4,14 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const id = parseInt(searchParams.get("id"));
   try {
+    let whereCondition = {
+      id: id
+    }
+
+    if (!id) whereCondition={}
    /*  const { searchParams } = new URL(request.url);
     let page = parseInt(searchParams.get("page"))
     let take = 14
@@ -16,6 +23,9 @@ export async function GET(request) {
     const data = await prisma.characters.findMany({
       /* take,
       skip, */
+      where:
+        whereCondition
+      ,
       orderBy: {
         id: 'asc'
       },

@@ -9,7 +9,7 @@ import Image from "next/image";
 import axios from "axios";
 
 
-export default function Cards({ charPage, addFav, removeFav }) {
+export default function Cards({ cardId, setCardId, isOpen, setIsOpen, charPage, addFav, removeFav }) {
 
   /*
 
@@ -33,8 +33,12 @@ export default function Cards({ charPage, addFav, removeFav }) {
             if (name.length > 30) size = "text-xl";
             return (
               <div
+              onClick={() => {
+                setCardId(id);
+                setIsOpen(true)
+              }}
                 key={id}
-                className="w-52 h-[290px] bg-cyan-600 rounded-3xl text-white flex flex-col items-center text-center py-2"
+                className="w-52 hover:scale-105 transition-all duration-500 cursor-pointer h-[290px] bg-cyan-600 rounded-3xl text-white flex flex-col items-center text-center py-2"
               >
                 <button
                   key={id}
