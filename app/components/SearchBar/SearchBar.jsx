@@ -1,24 +1,17 @@
 'use client'
 
-import {useState, useEffect} from 'react'
-
-export default function SearchBar( {characters }) {
-    const [hidden, setHidden] = useState('true')
-
-    const [value, setValue] = useState()
+export default function SearchBar( {setFiltered, characters }) {
 
     function handleChange(e){
-        setValue(e.target.value)
+        const searchTerm = e.target.value.toLowerCase();
+        if (searchTerm === "") setFiltered(characters);
+        const filteredCharacters = characters.filter(
+            (char) => char.name.toLowerCase().includes(searchTerm)
+        );
+
+        setFiltered(filteredCharacters);
     }
 
-    useEffect(() => {
-        if (characters && characters.length > 0){
-            setHidden(false)
-        }
-        else{
-            setHidden(true)
-        }
-      }, [characters]);
 
 
 
@@ -29,9 +22,7 @@ export default function SearchBar( {characters }) {
             className='px-1 h-8 rounded-md'
             type="search"
             placeholder="Find a character..."
-            value={value}
             onChange={handleChange}
-            hidden={hidden}
             />
         </div>
         </>

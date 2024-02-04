@@ -15,6 +15,8 @@ export default function Home(){
   const [isOpen, setIsOpen] = useState(false)
   const [cardId, setCardId] = useState('')
   const [loading, setLoading] = useState(true)
+  const [input, setInput] = useState('')
+  const [filtered, setFiltered] = useState([])
 
   const addFav = async (id) => {
       try {
@@ -53,11 +55,10 @@ export default function Home(){
 
   async function cargarDatos() {
     try {
-        if (characters.length===0){
           const response = await axios.get(`/api/characters`);
           setCharacters(response.data);
+          setFiltered(response.data)
           if (response) setLoading(false)
-        }   
     } catch (error) {
       console.log(error)
     }
@@ -65,26 +66,26 @@ export default function Home(){
 
 
   function paginarDatos(){
-    if (characters.length === 0){
+    if (filtered.length === 0){
       setMaxPage(1)
     } 
     else{
-      setMaxPage(Math.ceil(characters.length / 14))
+      setMaxPage(Math.ceil(filtered.length / 14))
     }
-    setCharPage(characters.slice((page-1)*14, 14*page))
+      setCharPage(filtered.slice((page-1)*14, 14*page))
     }
 
   useEffect(() => {
-    characters.sort((a, b) => a.id - b.id);
+    filtered.sort((a, b) => a.id - b.id);
   }, []);
 
   useEffect(() => {
     cargarDatos();
-    }, []);
+    }, [input]);
 
   useEffect(() => {
     paginarDatos();
-  }, [characters, page]);
+  }, [filtered, page]);
 
 
   function nextPage() {
@@ -101,7 +102,7 @@ export default function Home(){
     
     <div className="bg-cyan-600 h-12 flex justify-center items-center gap-32 py-8">
     
-            <SearchBar characters={characters}/>
+            <SearchBar characters={characters} setFiltered={setFiltered} />
     </div>
     
     {!loading? (<Cards cardId={cardId} setCardId={setCardId} charPage={charPage} addFav={addFav} removeFav={removeFav} isOpen={isOpen} setIsOpen={setIsOpen} />)

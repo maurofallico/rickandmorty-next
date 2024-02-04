@@ -12,6 +12,7 @@ export default function Favorites() {
   const [loading, setLoading] = useState(true)
   const [cardId, setCardId] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+  
 
 
   const removeFav = async (id) => {

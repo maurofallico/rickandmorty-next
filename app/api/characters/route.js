@@ -6,23 +6,22 @@ const prisma = new PrismaClient()
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const id = parseInt(searchParams.get("id"));
+  const name = searchParams.get("name")
   try {
-    let whereCondition = {
-      id: id
+    let whereCondition = {};
+
+    if (id) {
+      whereCondition.id = id;
     }
 
-    if (!id) whereCondition={}
-   /*  const { searchParams } = new URL(request.url);
-    let page = parseInt(searchParams.get("page"))
-    let take = 14
-    if (!page){
-      page=1
-      take=826
-    } 
-    const skip = (page-1)*14 */
+    if (name) {
+      whereCondition.name = {
+        contains: name,
+        mode: 'insensitive',
+      };
+    }
+
     const data = await prisma.characters.findMany({
-      /* take,
-      skip, */
       where:
         whereCondition
       ,
