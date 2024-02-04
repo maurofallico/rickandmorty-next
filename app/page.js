@@ -1,4 +1,8 @@
 'use client'
+import { BiFirstPage } from "react-icons/bi"; 
+import { MdNavigateBefore } from "react-icons/md"; 
+import { MdNavigateNext } from "react-icons/md"; 
+import { BiLastPage } from "react-icons/bi"; 
 
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import { useEffect, useState } from "react";
@@ -71,6 +75,7 @@ export default function Home(){
     } 
     else{
       setMaxPage(Math.ceil(filtered.length / 14))
+      
     }
       setCharPage(filtered.slice((page-1)*14, 14*page))
     }
@@ -87,6 +92,11 @@ export default function Home(){
     paginarDatos();
   }, [filtered, page]);
 
+  useEffect(() => {
+    setPage(1)
+  }, [filtered]);
+
+
 
   function nextPage() {
     if (page !== maxPage) setPage(page + 1);
@@ -94,6 +104,14 @@ export default function Home(){
 
   function prevPage() {
     if (page !== 1) setPage(page - 1);
+  }
+
+  function lastPage() {
+    setPage(maxPage);
+  }
+
+  function firstPage() {
+    setPage(1);
   }
   
 
@@ -107,22 +125,34 @@ export default function Home(){
     
     {!loading? (<Cards cardId={cardId} setCardId={setCardId} charPage={charPage} addFav={addFav} removeFav={removeFav} isOpen={isOpen} setIsOpen={setIsOpen} />)
     : (<div className="text-5xl text-gray-50 flex flex-col items-center justify-center gap-24 py-12">
-    <span className="text-cyan-600 w-[150px] loading loading-spinner "></span>
+    <span className="text-cyan-600 w-[120px] loading loading-spinner "></span>
     </div>)}
     {isOpen? (<Detail cardId={cardId} setIsOpen={setIsOpen} />) : (null)}
-    {!loading? (<div className="flex flex-row items-center justify-center mt-12 gap-6 text-2xl">
+    {!loading? (<div className="flex flex-row items-center justify-center mt-12 gap-4 text-2xl">
+    <button
+            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            onClick={firstPage}
+          >
+            <BiFirstPage />
+          </button>
           <button
-            className="bg-white rounded-xl p-3 hover:bg-gray-200"
+            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
             onClick={prevPage}
           >
-            <AiOutlineArrowLeft />
+            <MdNavigateBefore />
           </button>
-          <p className="bg-cyan-600 px-4 p-2 rounded-xl">PAGE:{page}/{maxPage}</p>
+          <p className="bg-cyan-600 px-4 pb-0.5 sm:w-[150px] h-9 flex justify-center items-center rounded-xl">PAGE:{page}/{maxPage}</p>
           <button
-            className="bg-white rounded-xl p-3 hover:bg-gray-200"
+            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
             onClick={nextPage}
           >
-            <AiOutlineArrowRight />
+            <MdNavigateNext />
+          </button>
+          <button
+            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            onClick={lastPage}
+          >
+            <BiLastPage />
           </button>
 
       </div>) : (null)}
