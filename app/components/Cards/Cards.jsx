@@ -1,36 +1,40 @@
 "use client";
 
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+
 import { FaHeart } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa";
-import { useEffect, useState } from "react";
 import Image from "next/image";
-import axios from "axios";
+import {useState, useEffect} from 'react'
 
 
-export default function Cards({ cardId, setCardId, isOpen, setIsOpen, charPage, addFav, removeFav }) {
+export default function Cards({ windowWidth, cardId, setCardId, isOpen, setIsOpen, charPage, addFav, removeFav }) {
+  /* const [windowWidth, setWindowWidth] = useState(0);
 
-  /*
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
 
-  function nextPage() {
-    if (page !== 52) setPage(page + 1);
-  }
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
 
-  function prevPage() {
-    if (page !== 1) setPage(page - 1);
-  } */
-  
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, []); */
+
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-center mt-12 gap-10 ">
+      <div className="flex flex-wrap items-center justify-center mt-12 gap-3 sm:gap-10 ">
         {charPage?.map(
           ({ id, name, species, gender, image, status, origin, fav }) => {
             let size = "";
-            if (name.length < 14) size = "text-3xl";
-            if (name.length > 13 && name.length < 31) size = "text-2xl";
-            if (name.length > 30) size = "text-xl";
+            if (name.length < 14) size = "text-lg sm:text-3xl";
+            if (name.length > 13 && name.length < 31) size = "text-sm sm:text-2xl";
+            if (name.length > 30) size = "text-xs sm:text-xl";
             return (
               <div
               onClick={() => {
@@ -38,13 +42,13 @@ export default function Cards({ cardId, setCardId, isOpen, setIsOpen, charPage, 
                 setIsOpen(true)
               }}
                 key={id}
-                className="w-52 hover:scale-105 transition-all duration-500 cursor-pointer h-[290px] bg-cyan-600 rounded-3xl text-white flex flex-col items-center text-center py-2"
+                className="w-32 sm:w-52 hover:scale-105 transition-all duration-500 cursor-pointer h-[178px] sm:h-[290px] bg-cyan-600 rounded-xl sm:rounded-3xl text-white flex flex-col items-center justify-between text-center py-2"
               >
                 <button
                   key={id}
                   name={id}
                   onClick={() => (fav ? removeFav(id) : addFav(id))}
-                  className={`flex self-end mx-4 text-2xl ${
+                  className={`flex self-end  mx-2 sm:mx-4 text-lg sm:text-2xl ${
                     fav ? "text-red-500" : ""
                   }`}
                 >
@@ -52,41 +56,26 @@ export default function Cards({ cardId, setCardId, isOpen, setIsOpen, charPage, 
                 </button>
 
                 <p
-                  className={`text-balance mt-0 h-24 flex items-center px-4 py-0 ${size}`}
+                  className={`text-balance leading-tight h-fit sm:h-12 flex items-center px-2 sm:px-4 mb-1 ${size}`}
                 >
                   {name}
                 </p>
-                <div className="w-full h-full items-end flex justify-center">
+                
+                <div className="flex w-fit ">
                   <Image
                     src={image}
-                    width={160}
-                    height={160}
+                    width={windowWidth < 400? 90 : 180}
+                    height={windowWidth < 400? 90  : 180}
                     alt="characterImage"
                     style={{ objectFit: "cover" }}
-                    className="flex mb-2 "
+                    className="flex "
                   />
-                </div>
               </div>
+                </div>
             );
           }
         )}
       </div>
-      {/* <div className="flex flex-row items-center justify-center mt-12 gap-6 text-2xl">
-          <button
-            className="bg-white rounded-xl p-3 hover:bg-gray-200"
-            onClick={prevPage}
-          >
-            <AiOutlineArrowLeft />
-          </button>
-          <p className="bg-cyan-600 px-4 p-2 rounded-xl">PAGE:{page}</p>
-          <button
-            className="bg-white rounded-xl p-3 hover:bg-gray-200"
-            onClick={nextPage}
-          >
-            <AiOutlineArrowRight />
-          </button>
-
-      </div> */}
     </>
   );
 }

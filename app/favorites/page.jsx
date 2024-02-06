@@ -50,11 +50,11 @@ export default function Favorites() {
 
   useEffect(() => {
     cargarDatos();
-  }, []); // Solo cargar datos al montar el componente
+  }, []); 
 
   useEffect(() => {
     filtrarDatos();
-  }, [gender, characters]); // Actualizar cuando cambia el género o los personajes
+  }, [gender, characters]); 
 
   return (
     <>

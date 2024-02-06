@@ -21,6 +21,23 @@ export default function Home(){
   const [loading, setLoading] = useState(true)
   const [input, setInput] = useState('')
   const [filtered, setFiltered] = useState([])
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
+
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, []);
 
   const addFav = async (id) => {
       try {
@@ -123,12 +140,40 @@ export default function Home(){
             <SearchBar characters={characters} setFiltered={setFiltered} />
     </div>
     
-    {!loading? (<Cards cardId={cardId} setCardId={setCardId} charPage={charPage} addFav={addFav} removeFav={removeFav} isOpen={isOpen} setIsOpen={setIsOpen} />)
+    {windowWidth < 400? (<div className="flex flex-row items-center justify-center mt-6 gap-2 text-lg">
+    <button
+            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            onClick={firstPage}
+          >
+            <BiFirstPage />
+          </button>
+          <button
+            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            onClick={prevPage}
+          >
+            <MdNavigateBefore />
+          </button>
+          <p className="bg-cyan-600 px-4 pb-0.5 sm:w-[150px] h-9 flex justify-center items-center rounded-xl">PAGE:{page}/{maxPage}</p>
+          <button
+            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            onClick={nextPage}
+          >
+            <MdNavigateNext />
+          </button>
+          <button
+            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            onClick={lastPage}
+          >
+            <BiLastPage />
+          </button>
+
+      </div>) : (null)}
+    {!loading? (<Cards windowWidth={windowWidth} cardId={cardId} setCardId={setCardId} charPage={charPage} addFav={addFav} removeFav={removeFav} isOpen={isOpen} setIsOpen={setIsOpen} />)
     : (<div className="text-5xl text-gray-50 flex flex-col items-center justify-center gap-24 py-12">
-    <span className="text-cyan-600 w-[120px] loading loading-spinner "></span>
+    <span className="text-cyan-600 w-[80px] sm:w-[120px] loading loading-spinner "></span>
     </div>)}
     {isOpen? (<Detail cardId={cardId} setIsOpen={setIsOpen} />) : (null)}
-    {!loading? (<div className="flex flex-row items-center justify-center mt-12 gap-4 text-2xl">
+    {!loading? (<div className="flex flex-row items-center justify-center mt-12 sm:gap-4 sm:text-2xl gap-2 text-lg">
     <button
             className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
             onClick={firstPage}
