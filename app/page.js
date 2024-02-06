@@ -142,26 +142,26 @@ export default function Home(){
     
     {windowWidth < 400? (<div className="flex text-black flex-row items-center justify-center mt-6 gap-2 text-lg">
     <button
-            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200 flex items-center justify-center text-3xl"
             onClick={firstPage}
           >
             <BiFirstPage />
           </button>
           <button
-            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200  flex items-center justify-center text-3xl"
             onClick={prevPage}
           >
             <MdNavigateBefore />
           </button>
-          <p className="bg-cyan-600 px-4 pb-0.5 sm:w-[150px] h-9 flex justify-center items-center rounded-xl">PAGE:{page}/{maxPage}</p>
+          <p className="bg-cyan-600 px-4 sm:w-[150px] h-fit sm:py-0 py-0.5 flex justify-center items-center rounded-lg sm:rounded-xl">PAGE:{page}/{maxPage}</p>
           <button
-            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200  flex items-center justify-center text-3xl"
             onClick={nextPage}
           >
             <MdNavigateNext />
           </button>
           <button
-            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200  flex items-center justify-center text-3xl"
             onClick={lastPage}
           >
             <BiLastPage />
@@ -173,28 +173,28 @@ export default function Home(){
     <span className="text-cyan-600 w-[80px] sm:w-[120px] loading loading-spinner "></span>
     </div>)}
     {isOpen? (<Detail cardId={cardId} setIsOpen={setIsOpen} />) : (null)}
-    {!loading? (<div className="flex text-black flex-row items-center justify-center mb-4 mt-12 sm:gap-4 sm:text-2xl gap-2 text-lg">
+    {!loading? (<div className="flex text-black flex-row items-center justify-center mt-6 gap-2 text-lg mb-4 ">
     <button
-            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200 flex items-center justify-center text-3xl"
             onClick={firstPage}
           >
             <BiFirstPage />
           </button>
           <button
-            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200  flex items-center justify-center text-3xl"
             onClick={prevPage}
           >
             <MdNavigateBefore />
           </button>
-          <p className="bg-cyan-600 px-4 pb-0.5 sm:w-[150px]  h-9 flex justify-center items-center rounded-xl">PAGE:{page}/{maxPage}</p>
+          <p className="bg-cyan-600 px-4 sm:w-[150px] h-fit sm:py-0 py-0.5 flex justify-center items-center rounded-lg sm:rounded-xl">PAGE:{page}/{maxPage}</p>
           <button
-            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200  flex items-center justify-center text-3xl"
             onClick={nextPage}
           >
             <MdNavigateNext />
           </button>
           <button
-            className="bg-white rounded-lg hover:bg-gray-200 w-9 h-9 flex items-center justify-center text-3xl"
+            className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200  flex items-center justify-center text-3xl"
             onClick={lastPage}
           >
             <BiLastPage />
