@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body>
       <div className='fixed [zIndex:-1]'>
     <img src="rickandmorty-background.jpg" width={1920} height={1080}
-     loading='lazy' alt='background-image' className='w-screen' />
+     loading='lazy' alt='background-image' className='w-screen h-screen object-cover' />
     </div>
       <NavBar />
       {children}

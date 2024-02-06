@@ -71,7 +71,7 @@ export default function Favorites() {
       </div>
       {!loading? (<Cards isOpen={isOpen} setIsOpen={setIsOpen} cardId={cardId} setCardId={setCardId} charPage={charPage} characters={characters} removeFav={removeFav} /> ):
       (<div className="text-5xl text-gray-50 flex flex-col items-center justify-center gap-24 py-12">
-      <span className="text-cyan-600 w-[120px] loading loading-spinner "></span>
+      <span className="text-cyan-600 w-[80px] sm:w-[120px] loading loading-spinner "></span>
       </div>)}
       {isOpen? (<Detail cardId={cardId} setIsOpen={setIsOpen} />) : (null)}
     </>
