@@ -12,7 +12,8 @@ export default function Favorites() {
   const [loading, setLoading] = useState(true)
   const [cardId, setCardId] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  
+  const [favs, setFavs] = useState([]);
+ 
 
 
   const removeFav = async (id) => {
@@ -32,6 +33,7 @@ export default function Favorites() {
       const response = await axios.get(`/api/favorites`);
       const responseData = response.data;
       setCharacters(responseData);
+      setFavs(responseData.map((char) => char.id));
     } catch (error) {
       console.error("Error loading data:", error);
     }
@@ -69,7 +71,7 @@ export default function Favorites() {
           </select>
         </div>
       </div>
-      {!loading? (<Cards isOpen={isOpen} setIsOpen={setIsOpen} cardId={cardId} setCardId={setCardId} charPage={charPage} characters={characters} removeFav={removeFav} /> ):
+      {!loading? (<Cards favs={favs} isOpen={isOpen} setIsOpen={setIsOpen} cardId={cardId} setCardId={setCardId} charPage={charPage} characters={characters} removeFav={removeFav} /> ):
       (<div className="text-5xl text-gray-50 flex flex-col items-center justify-center gap-24 py-12">
       <span className="text-cyan-600 w-[80px] sm:w-[120px] loading loading-spinner "></span>
       </div>)}

@@ -4,7 +4,6 @@ import { MdNavigateBefore } from "react-icons/md";
 import { MdNavigateNext } from "react-icons/md"; 
 import { BiLastPage } from "react-icons/bi"; 
 
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import SearchBar from './components/SearchBar/SearchBar'
 import Cards from './components/Cards/Cards.jsx'
@@ -22,6 +21,7 @@ export default function Home(){
   const [input, setInput] = useState('')
   const [filtered, setFiltered] = useState([])
   const [windowWidth, setWindowWidth] = useState(0);
+  const [favs, setFavs] = useState([]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -40,6 +40,7 @@ export default function Home(){
   }, []);
 
   const addFav = async (id) => {
+    setFavs([...favs, id]);
       try {
         setCharacters((prevCharacters) =>
           prevCharacters.map((char) =>
@@ -58,6 +59,7 @@ export default function Home(){
   };
 
   const removeFav = async (id) => {
+    setFavs(favs.filter((favId) => favId !== id));
     try {
       setCharacters((prevCharacters) =>
         prevCharacters.map((char) =>
@@ -77,8 +79,20 @@ export default function Home(){
   async function cargarDatos() {
     try {
           const response = await axios.get(`/api/characters`);
-          setCharacters(response.data);
-          setFiltered(response.data)
+          const responseData = response.data;
+          setCharacters(responseData);
+          setFiltered(responseData)
+          if (response) setLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function cargarFavoritos() {
+    try {
+          const response = await axios.get(`/api/favorites`);
+          const responseData = response.data;
+          setFavs(responseData.map((char) => char.id));
           if (response) setLoading(false)
     } catch (error) {
       console.log(error)
@@ -103,6 +117,7 @@ export default function Home(){
 
   useEffect(() => {
     cargarDatos();
+    cargarFavoritos()
     }, [input]);
 
   useEffect(() => {
@@ -168,7 +183,7 @@ export default function Home(){
           </button>
 
       </div>) : (null)}
-    {!loading? (<Cards windowWidth={windowWidth} cardId={cardId} setCardId={setCardId} charPage={charPage} addFav={addFav} removeFav={removeFav} isOpen={isOpen} setIsOpen={setIsOpen} />)
+    {!loading? (<Cards windowWidth={windowWidth} cardId={cardId} setCardId={setCardId} charPage={charPage} addFav={addFav} removeFav={removeFav} isOpen={isOpen} setIsOpen={setIsOpen} favs={favs} />)
     : (<div className="text-5xl text-gray-50 flex flex-col items-center justify-center gap-24 py-12">
     <span className="text-cyan-600 w-[80px] sm:w-[120px] loading loading-spinner "></span>
     </div>)}
@@ -186,7 +201,7 @@ export default function Home(){
           >
             <MdNavigateBefore />
           </button>
-          <p className="bg-cyan-600 px-4 sm:w-[150px] h-fit sm:py-0 py-0.5 flex justify-center items-center rounded-lg sm:rounded-xl">PAGE:{page}/{maxPage}</p>
+          <p className="bg-cyan-600 px-4 sm:w-[150px] h-fit sm:py-1 py-0.5 flex justify-center items-center rounded-lg ">PAGE:{page}/{maxPage}</p>
           <button
             className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200  flex items-center justify-center text-3xl"
             onClick={nextPage}
