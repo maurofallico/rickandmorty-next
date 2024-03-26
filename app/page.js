@@ -85,7 +85,7 @@ export default function Home(){
       if (response) {
         setTimeout(() => {
           setLoading(false);
-        }, 500);
+        }, 1500);
       }
     } catch (error) {
       console.log(error);
