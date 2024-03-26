@@ -78,13 +78,17 @@ export default function Home(){
 
   async function cargarDatos() {
     try {
-          const response = await axios.get(`/api/characters`);
-          const responseData = response.data;
-          setCharacters(responseData);
-          setFiltered(responseData)
-          if (response) setLoading(false)
+      const response = await axios.get(`/api/characters`);
+      const responseData = response.data;
+      setCharacters(responseData);
+      setFiltered(responseData);
+      if (response) {
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -93,7 +97,6 @@ export default function Home(){
           const response = await axios.get(`/api/favorites`);
           const responseData = response.data;
           setFavs(responseData.map((char) => char.id));
-          if (response) setLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -118,7 +121,7 @@ export default function Home(){
   useEffect(() => {
     cargarDatos();
     cargarFavoritos()
-    }, [input]);
+    }, []);
 
   useEffect(() => {
     paginarDatos();
@@ -155,7 +158,7 @@ export default function Home(){
             <SearchBar characters={characters} setFiltered={setFiltered} />
     </div>
     
-    {windowWidth < 400? (<div className="flex text-black flex-row items-center justify-center mt-6 gap-2 text-lg">
+    {windowWidth < 400 && !loading? (<div className="flex text-black flex-row items-center justify-center mt-6 gap-2 text-lg">
     <button
             className="bg-white rounded-md sm:rounded-lg sm:w-9 sm:h-9 w-7 h-7 hover:bg-gray-200 flex items-center justify-center text-3xl"
             onClick={firstPage}
