@@ -109,7 +109,7 @@ export default function Home(){
     } 
     else{
       setMaxPage(Math.ceil(filtered.length / 14))
-      
+
     }
       setCharPage(filtered.slice((page-1)*14, 14*page))
     }
@@ -151,7 +151,7 @@ export default function Home(){
   
 
   return (
-    <>
+    <div className="h-screen">
     
     <div className="bg-cyan-600 h-12 flex justify-center items-center gap-32 py-8">
     
@@ -186,7 +186,18 @@ export default function Home(){
           </button>
 
       </div>) : (null)}
-    {!loading? (<Cards windowWidth={windowWidth} cardId={cardId} setCardId={setCardId} charPage={charPage} addFav={addFav} removeFav={removeFav} isOpen={isOpen} setIsOpen={setIsOpen} favs={favs} />)
+    {!loading? (<div className="min-h-[620px]">
+      <Cards
+         windowWidth={windowWidth}
+         cardId={cardId}
+         setCardId={setCardId}
+         charPage={charPage}
+         addFav={addFav}
+         removeFav={removeFav}
+         isOpen={isOpen}
+         setIsOpen={setIsOpen}
+         favs={favs} />
+      </div>)
     : (<div className="text-5xl text-gray-50 flex flex-col items-center justify-center gap-24 py-12">
     <span className="text-cyan-600 w-[80px] sm:w-[120px] loading loading-spinner "></span>
     </div>)}
@@ -219,6 +230,6 @@ export default function Home(){
           </button>
 
       </div>) : (null)}
-    </>
+    </div>
   )
 }

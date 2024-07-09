@@ -4,7 +4,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  const data = JSON.parse(fs.readFileSync('./api/db.json', 'utf8'));
+  const data = JSON.parse(fs.readFileSync('app/api/db.json', 'utf8'));
 
   for (const item of data.characters) {
     await prisma.characters.create({
