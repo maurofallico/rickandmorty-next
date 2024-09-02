@@ -62,8 +62,8 @@ export default function Favorites() {
     <>
       <div className="bg-cyan-600 h-12 flex justify-center items-center gap-32 py-8">
         <div className="flex gap-4">
-          <span className="underline font-bold">Gender:</span>
-          <select onChange={(e) => setGender(e.target.value)} value={gender} className="">
+          <span className="underline font-bold text-white">Gender:</span>
+          <select onChange={(e) => setGender(e.target.value)} value={gender} className="text-white">
             <option value="all">All</option>
             {Array.from(new Set(characters?.map((char) => char.gender))).map((gender, index) => (
               <option key={index}>{gender}</option>
